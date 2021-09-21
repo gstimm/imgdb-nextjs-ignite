@@ -23,13 +23,13 @@ interface ImagesResponse {
 
 export default function Home(): JSX.Element {
   const fetchImages = async ({ pageParam = null }): Promise<ImagesResponse> => {
-    const response = await api.get(`/api/images`, {
+    const { data } = await api.get('/api/images', {
       params: {
         after: pageParam,
       },
     });
 
-    return response.data;
+    return data;
   };
 
   const {
@@ -40,7 +40,7 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery('images', fetchImages, {
-    getNextPageParam: lastPage => lastPage.after,
+    getNextPageParam: lastPage => lastPage?.after || null,
   });
 
   const formattedData = useMemo(() => {
@@ -51,13 +51,13 @@ export default function Home(): JSX.Element {
       .flat();
   }, [data]);
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  // if (isError) {
-  //   return <Error />;
-  // }
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <>
@@ -68,7 +68,7 @@ export default function Home(): JSX.Element {
         {hasNextPage && (
           <Button
             type="button"
-            onClick={() => fetchNextPage}
+            onClick={() => fetchNextPage()}
             loadingText="Carregando..."
             isLoading={isFetchingNextPage}
           >

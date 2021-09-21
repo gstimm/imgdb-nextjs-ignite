@@ -22,7 +22,13 @@ export function ModalViewImage({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        mx="auto"
+        w="auto"
+        h="auto"
+        maxW={['300px, 500px, 900px']}
+        maxH={['350px, 450px, 600px']}
+      >
         <ModalBody p={0}>
           <Image src={imgUrl} objectFit="cover" />
         </ModalBody>
