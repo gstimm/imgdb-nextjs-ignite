@@ -51,13 +51,13 @@ export default function Home(): JSX.Element {
       .flat();
   }, [data]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
-  if (isError) {
-    return <Error />;
-  }
+  // if (isError) {
+  //   return <Error />;
+  // }
 
   return (
     <>
